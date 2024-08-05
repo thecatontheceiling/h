@@ -37,7 +37,7 @@ def bsr_demix_track(model, mix, device, overlap=2):
             batch_data = []
             batch_locations = []
 
-            # 初始化 tqdm 进度条
+            
             total_steps = (mix.shape[1] + step - 1) // step
             progress_bar = tqdm(
                 total=total_steps, desc="Demixing Progress", unit="chunk"
@@ -61,7 +61,7 @@ def bsr_demix_track(model, mix, device, overlap=2):
                 batch_data.append(part)
                 batch_locations.append((i, length))
                 i += step
-                progress_bar.update(1)  # 更新进度条
+                progress_bar.update(1)
 
                 if len(batch_data) >= batch_size or (i >= mix.shape[1]):
                     arr = torch.stack(batch_data, dim=0)
@@ -83,7 +83,7 @@ def bsr_demix_track(model, mix, device, overlap=2):
                     batch_data = []
                     batch_locations = []
 
-            progress_bar.close()  # 关闭进度条
+            progress_bar.close()
 
             estimated_sources = result / counter
             estimated_sources = estimated_sources.cpu().numpy()
