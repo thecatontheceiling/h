@@ -25,8 +25,7 @@ bsr_model_path = Path("model_bs_roformer_ep_317_sdr_12.9755.ckpt")
 
 if torch.cuda.is_available():
     device = torch.device("cuda")
-# elif torch.backends.mps.is_available():
-#     device = torch.device("mps")
+
 else:
     device = torch.device("cpu")
 
@@ -68,7 +67,7 @@ def run():
             samplerate=sr,
             subtype="PCM_24",
         )
-        # 将vocals和原曲反相相加，得到伴奏
+        
         torch.cuda.empty_cache()
         soundfile.write(
             audio_output_path.joinpath(f"{audio_name}_accompaniment.flac"),
